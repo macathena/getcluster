@@ -1,8 +1,10 @@
 debathena-getcluster (10.2.1-0debathena1) UNRELEASED; urgency=low
 
   * Add setup.py
+  * Add git-buildpackage configuration
+  * Set source format to 3.0 (quilt)
 
- -- Victor Vasiliev <vasilvv@mit.edu>  Thu, 27 Mar 2014 18:11:40 -0400
+ -- Victor Vasiliev <vasilvv@mit.edu>  Thu, 27 Mar 2014 18:15:26 -0400
 
 debathena-getcluster (10.2) unstable; urgency=low
 
