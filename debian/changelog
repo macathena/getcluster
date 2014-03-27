@@ -1,3 +1,9 @@
+debathena-getcluster (10.2.1-0debathena1) UNRELEASED; urgency=low
+
+  * Add setup.py
+
+ -- Victor Vasiliev <vasilvv@mit.edu>  Thu, 27 Mar 2014 18:11:40 -0400
+
 debathena-getcluster (10.2) unstable; urgency=low
 
   * Rewrite in Python and remove autogoo (Trac: #1037)
