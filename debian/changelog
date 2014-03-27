@@ -1,8 +1,9 @@
-debathena-getcluster (10.2.1-0debathena1) UNRELEASED; urgency=low
+debathena-getcluster (10.2.1-0debathena1) unstable; urgency=low
 
   * Add setup.py
   * Add git-buildpackage configuration
   * Set source format to 3.0 (quilt)
+  * Use dh_python2
 
  -- Victor Vasiliev <vasilvv@mit.edu>  Thu, 27 Mar 2014 18:15:26 -0400
 

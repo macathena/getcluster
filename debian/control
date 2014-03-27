@@ -2,13 +2,14 @@ Source: debathena-getcluster
 Section: debathena/net
 Priority: extra
 Maintainer: Debathena Project <debathena@mit.edu>
-Build-Depends: debhelper (>= 7.0~)
+Build-Depends: debhelper (>= 7.0~), python
 Standards-Version: 3.9.3
 
 Package: debathena-getcluster
 Architecture: all
 Provides: getcluster
 Depends: ${misc:Depends}, ${python:Depends}, python-hesiod
+X-Python-Version: 2.7
 Description: Retrieve service cluster info from Hesiod for Athena workstations
  The getcluster program is used on all Athena workstations to find the 
  service cluster information for the workstation and writes a list of 
