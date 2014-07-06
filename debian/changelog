@@ -1,3 +1,9 @@
+debathena-getcluster (10.2.2-0debathena2) unstable; urgency=low
+
+  * Package 10.2.2, which contains a fix for bad version numbers
+
+ -- Jonathan Reed <jdreed@mit.edu>  Sun, 06 Jul 2014 14:58:33 -0400
+
 debathena-getcluster (10.2.1-0debathena1) unstable; urgency=low
 
   * Add setup.py
