@@ -2,7 +2,7 @@
 #
 # A rewrite of getcluster(1) in Python
 #
-
+from __future__ import print_function, absolute_import
 FALLBACKFILE = "/etc/cluster.fallback"
 LOCALFILE = "/etc/cluster.local"
 CLUSTERFILE = "/etc/cluster"
@@ -27,10 +27,10 @@ debugMode = os.getenv('DEBUG_GETCLUSTER', 'no') == 'yes'
 
 def debug(msg, *args):
     if debugMode:
-        print >>sys.stderr, "D:", msg % (args)
+        print("D:", msg % (args), file=sys.stderr)
 
 def perror(msg, *args):
-    print >>sys.stderr, ("%s: " + msg) % ((sys.argv[0],) + args)
+    print(("%s: " + msg) % ((sys.argv[0],) + args), file=sys.stderr)
 
 def merge(list1, list2):
     rv = [] + list1
@@ -40,11 +40,22 @@ def merge(list1, list2):
     return rv
 
 def cleanup(l):
-    return filter(lambda x: cluster_re.match(x), map(lambda x: x.rstrip(), l))
+    return [x for x in [x.rstrip() for x in l] if cluster_re.match(x)]
+
+def cmp(x, y):
+    """
+    Replacement for built-in function cmp that was removed in Python 3
+
+    Compare the two objects x and y and return an integer according to
+    the outcome. The return value is negative if x < y, zero if x == y
+    and strictly positive if x > y.
+    """
+
+    return (x > y) - (x < y)
 
 def vercmp(v1, v2):
-    v1l = map(int, map(lambda x: 0 if x is None else x, version_re.search(v1).groups()))
-    v2l = map(int, map(lambda x: 0 if x is None else x, version_re.search(v2).groups()))
+    v1l = list(map(int, [0 if x is None else x for x in version_re.search(v1).groups()]))
+    v2l = list(map(int, [0 if x is None else x for x in version_re.search(v2).groups()]))
     return cmp(v1l, v2l)
 
 
@@ -52,11 +63,11 @@ def output_var(var, val, bourne=False, plaintext=False):
     val = val.replace("'", "'\\''")
     var = var.upper()
     if bourne:
-        print "%s='%s' ; export %s" % (var, val, var)
+        print("%s='%s' ; export %s" % (var, val, var))
     elif plaintext:
-        print "%s %s" % (var, val)
+        print("%s %s" % (var, val))
     else:
-        print "setenv %s '%s' ;" % (var, val)
+        print("setenv %s '%s' ;" % (var, val))
 
 def main():
     parser = OptionParser(usage='%prog [options] version', add_help_option=False)
@@ -141,7 +152,7 @@ def main():
             perror("No cluster information available for %s", options.hostname)
     # Sort everything into a hash, with varnames as keys and lists of lists as values
     cdata = {}
-    for i in map(lambda x: x.split(' '), merge(merge(local, data), fallback)):
+    for i in [x.split(' ') for x in merge(merge(local, data), fallback)]:
         var = i.pop(0)
         if var not in cdata:
             cdata[var] = []
